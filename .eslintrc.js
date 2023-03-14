@@ -19,5 +19,6 @@ module.exports = {
         "@typescript-eslint/explicit-function-return-type": "off",
         "react/react-in-jsx-scope": "off",
         "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/no-confusing-void-expression": "off",
     },
 };
