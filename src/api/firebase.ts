@@ -3,7 +3,8 @@ import {
     getAuth,
     signInWithPopup,
     GoogleAuthProvider,
-    signInWithRedirect,
+    GithubAuthProvider,
+    signOut,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -18,31 +19,35 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
 
-// signInWithPopup(auth, provider)
-//     .then(result => {
-//         const credential = GoogleAuthProvider.credentialFromResult(result);
-//         const token = credential?.accessToken;
-//         // The signed-in user info.
-//         const user = result.user;
-//         console.log(user);
+const providerGoogle = new GoogleAuthProvider();
+providerGoogle.setCustomParameters({
+    prompt: "select_account",
+});
+const providerGithub = new GithubAuthProvider();
+providerGithub.setCustomParameters({
+    allow_signup: "false",
+    scope: "repo",
+});
 
-//         // IdP data available using getAdditionalUserInfo(result)
-//     })
-//     .catch(error => {
-//         console.log(error);
-//     });
-
-// export function login() {
-//     signInWithPopup(auth, provider).catch(console.error);
-// }
-
-export function login() {
-    signInWithPopup(auth, provider)
+export function loginWithGoole() {
+    signInWithPopup(auth, providerGoogle)
         .then(res => console.log(res))
         .catch(console.error);
 }
-export function login2() {
-    signInWithRedirect(auth, provider);
+
+export function loginWithGithub() {
+    signInWithPopup(auth, providerGithub)
+        .then(res => console.log(res))
+        .catch(console.error);
+}
+
+export function logout() {
+    signOut(auth)
+        .then(() => {
+            console.log("로그아웃");
+        })
+        .catch(error => {
+            console.log(error);
+        });
 }

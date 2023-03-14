@@ -1,10 +1,12 @@
 import styled from "styled-components";
-import { login, login2 } from "../api/firebase";
+import { loginWithGithub, loginWithGoole, logout } from "../api/firebase";
 
 const Header = () => {
     return (
         <HeaderNav>
-            <button onClick={login2}>로그인</button>
+            <button onClick={loginWithGoole}>구글로그인</button>
+            <button onClick={logout}>구글로그아웃</button>
+            <button onClick={loginWithGithub}>깃로그인</button>
         </HeaderNav>
     );
 };
